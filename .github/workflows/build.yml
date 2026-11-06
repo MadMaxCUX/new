@@ -1,0 +1,29 @@
+name: build
+
+on:
+  push:
+    branches: [ "**" ]
+  workflow_dispatch:
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: fetch imgui
+        shell: pwsh
+        run: |
+          git clone --depth 1 --branch v1.90.9 https://github.com/ocornut/imgui.git third_party/imgui
+
+      - name: configure
+        run: cmake -S . -B build -A x64
+
+      - name: build
+        run: cmake --build build --config Release --parallel
+
+      - name: upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: madcheats-external
+          path: build/bin/madcheats.cc.exe
