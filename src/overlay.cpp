@@ -3,6 +3,7 @@
 #include "imgui_impl_win32.h"
 #include "imgui_impl_dx11.h"
 #include <dwmapi.h>
+#include <iterator>
 
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND, UINT, WPARAM, LPARAM);
 static Overlay* g_self = nullptr;
